@@ -9,7 +9,7 @@ type ContainerProps = {
 export const Container = ({ children, className }: ContainerProps) => {
   return (
     <div
-      className={cn(className, "animate-fade-right mx-auto w-full max-w-7xl")}
+      className={cn(className, " mx-auto w-full max-w-6xl")}
     >
       {children}
     </div>
