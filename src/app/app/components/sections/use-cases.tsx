@@ -88,7 +88,7 @@ export const UseCasesSection = () => {
   };
 
   return (
-    <section className="from-background to-muted/30 bg-gradient-to-b py-20">
+    <section className="from-background to-muted/30 bg-gradient-to-b py-20" id="use-cases">
       <Container>
         <motion.div
           className="mb-12 flex flex-col items-center justify-center space-y-4 text-center"

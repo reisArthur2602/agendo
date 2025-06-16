@@ -5,9 +5,8 @@ import Link from "next/link";
 
 const navItems = [
   { label: "Recursos", href: "#features" },
-  { label: "Use Cases", href: "#use-cases" },
+  { label: "Casos de uso", href: "#use-cases" },
   { label: "Depoimentos", href: "#testimonials" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export const Navbar = () => {
