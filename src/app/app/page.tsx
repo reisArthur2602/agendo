@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { FeaturesSection } from "./components/sections/features";
 import { UseCasesSection } from "./components/sections/use-cases";
+import { TestimonialsSection } from "./components/sections/testimonials";
 
 const Home = () => {
   return (
@@ -107,6 +108,8 @@ const Home = () => {
       </section>
 
       <UseCasesSection />
+
+      <TestimonialsSection />
     </div>
   );
 };
