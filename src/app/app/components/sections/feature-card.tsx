@@ -1,17 +1,20 @@
-"use client"
+"use client";
 
-import type { ReactNode } from "react"
-import { motion } from "framer-motion"
-import { Card } from "@/components/ui/card"
-import {FrostedGlassIcon} from "@/components/ui/frosted-glass-icon"
-
-
+import type { ReactNode } from "react";
+import { motion } from "framer-motion";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { FrostedGlassIcon } from "@/components/ui/frosted-glass-icon";
 
 interface FeatureCardProps {
-  icon: ReactNode
-  title: string
-  description: string
-  accentColor?: string
+  icon: ReactNode;
+  title: string;
+  description: string;
+  accentColor?: string;
 }
 
 export const FeatureCard = ({
@@ -20,28 +23,30 @@ export const FeatureCard = ({
   description,
   accentColor = "rgba(120, 120, 255, 0.5)",
 }: FeatureCardProps) => {
-
-
   // Adjust accent color opacity for dark mode
-  const adjustedAccentColor = accentColor
+  const adjustedAccentColor = accentColor;
 
   return (
     <motion.div
-      className="relative group h-full"
+      className="group relative h-full"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true, margin: "-100px" }}
     >
-      <Card className="h-full overflow-hidden bg-background/60 backdrop-blur-sm border transition-all duration-300 hover:shadow-lg dark:bg-background/80">
-        <div className="p-6 h-full flex flex-col relative z-10">
-          <FrostedGlassIcon icon={icon} color={accentColor} className="mb-4 self-start" />
+      <Card className="bg-background/60 dark:bg-background/80 h-full overflow-hidden border backdrop-blur-sm transition-all duration-300 hover:shadow-lg">
+        <CardHeader>
+          <FrostedGlassIcon
+            icon={icon}
+            color={accentColor}
+            className="mb-4 self-start"
+          />
+          <CardTitle className="text-xl font-bold">{title}</CardTitle>
+          <CardDescription className="text-muted-foreground">
+            {description}
+          </CardDescription>
+        </CardHeader>
 
-          <h3 className="text-xl font-bold mb-2">{title}</h3>
-          <p className="text-muted-foreground flex-grow">{description}</p>
-        </div>
-
-        {/* Always visible animated gradient background */}
         <motion.div
           className="absolute inset-0 z-0 opacity-20 dark:opacity-30"
           initial={{ opacity: 0 }}
@@ -61,5 +66,5 @@ export const FeatureCard = ({
         />
       </Card>
     </motion.div>
-  )
-}
+  );
+};

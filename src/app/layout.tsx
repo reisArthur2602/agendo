@@ -20,9 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} flex min-h-screen antialiased`}>
-        <main className="flex-1 grid">
-          {children}
-        </main>
+        <main className="grid flex-1">{children}</main>
       </body>
     </html>
   );

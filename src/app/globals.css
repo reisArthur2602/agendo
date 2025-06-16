@@ -119,28 +119,36 @@
   }
 }
 
-
-
 /* Light mode grid background */
 .grid-background {
-  background-image: linear-gradient(to right, rgba(36, 101, 237, 0.2) 0.5px, transparent 0.5px),
+  background-image:
+    linear-gradient(to right, rgba(36, 101, 237, 0.2) 0.5px, transparent 0.5px),
     linear-gradient(to bottom, rgba(36, 101, 237, 0.2) 0.5px, transparent 0.5px) !important;
   background-size: 80px 80px !important;
 }
 
 .grid-gradient {
-  background: radial-gradient(70% 70% at 50% 50%, transparent 0%, rgba(36, 101, 237, 0.05) 100%) !important;
+  background: radial-gradient(
+    70% 70% at 50% 50%,
+    transparent 0%,
+    rgba(36, 101, 237, 0.05) 100%
+  ) !important;
 }
 
 /* Dark mode adjustments for the grid background */
 .dark .grid-background {
-  background-image: linear-gradient(to right, rgba(36, 101, 237, 0.2) 0.5px, transparent 0.5px),
+  background-image:
+    linear-gradient(to right, rgba(36, 101, 237, 0.2) 0.5px, transparent 0.5px),
     linear-gradient(to bottom, rgba(36, 101, 237, 0.2) 0.5px, transparent 0.5px) !important;
   background-size: 80px 80px !important;
 }
 
 .dark .grid-gradient {
-  background: radial-gradient(70% 70% at 50% 50%, transparent 0%, rgba(36, 101, 237, 0.05) 100%) !important;
+  background: radial-gradient(
+    70% 70% at 50% 50%,
+    transparent 0%,
+    rgba(36, 101, 237, 0.05) 100%
+  ) !important;
 }
 
 /* Card styling improvements for dark mode */
@@ -155,14 +163,14 @@
 
 /* Frosted glass effect */
 .frost-glass {
-  @apply backdrop-blur-md border shadow-sm;
+  @apply border shadow-sm backdrop-blur-md;
   /* Light mode specific */
-  @apply bg-white/80 border-primary/10 text-gray-800 shadow-[0_4px_20px_rgba(36,101,237,0.2)];
+  @apply border-primary/10 bg-white/80 text-gray-800 shadow-[0_4px_20px_rgba(36,101,237,0.2)];
   /* Dark mode specific */
-  @apply dark:bg-black/20 dark:border-white/10 dark:text-white dark:shadow-[0_4px_20px_rgba(36,101,237,0.3)];
+  @apply dark:border-white/10 dark:bg-black/20 dark:text-white dark:shadow-[0_4px_20px_rgba(36,101,237,0.3)];
 }
 
 /* Input focus effect */
 .frost-glass-input:focus {
-  @apply border-primary/30 ring-2 ring-primary/20 ring-offset-0;
+  @apply border-primary/30 ring-primary/20 ring-2 ring-offset-0;
 }
