@@ -3,11 +3,13 @@ import { Navbar } from "./components/navbar";
 import { FramerSpotlight } from "@/components/ui/framer-spotlight";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { FeaturesSection } from "./components/features-section";
+
 
 const Home = () => {
-  return <div>
+  return <div className="grid">
     <Navbar/>
-    
+
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
           <CssGridBackground />
           <FramerSpotlight />
@@ -42,6 +44,8 @@ const Home = () => {
           </Container>
 
     </section>
+
+    <FeaturesSection/>
 
   </div>;
 };
