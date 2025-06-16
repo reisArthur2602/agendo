@@ -28,7 +28,7 @@ const testimonials = [
 
 export const TestimonialsSection = () => {
   return (
-    <section className="py-20">
+    <section className="py-20" id="testimonials">
       <Container>
         <div className="mb-12 flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
