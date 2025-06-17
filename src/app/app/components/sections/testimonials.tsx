@@ -52,7 +52,7 @@ export const TestimonialsSection = () => {
             >
               <Card key={index} className="flex h-full flex-col">
                 <CardContent className="flex-grow pt-6">
-                  <div className="mb-4 text-4xl">"</div>
+                  <div className="mb-4 text-4xl">{`"`}</div>
                   <p className="text-muted-foreground italic">
                     {testimonial.quote}
                   </p>

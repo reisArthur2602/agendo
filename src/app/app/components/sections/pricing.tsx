@@ -1,11 +1,12 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { TitleSection } from "./title";
+import { Button } from "@/components/ui/button/primitive";
 
 const plans = [
   {

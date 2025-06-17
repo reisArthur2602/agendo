@@ -1,7 +1,8 @@
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button/primitive";
 import { Container } from "@/components/ui/container";
 import { CssGridBackground } from "@/components/ui/css-grid-background";
 import { FramerSpotlight } from "@/components/ui/framer-spotlight";
+import { SigninDialog } from "../signin-dialog";
 import Link from "next/link";
 
 export const HeroSection = () => {
@@ -30,9 +31,10 @@ export const HeroSection = () => {
           </p>
 
           <div className="flex flex-wrap justify-center gap-3">
-            <Link href="/app/signin" className={buttonVariants({ size: "lg" })}>
-              Começar Grátis
-            </Link>
+            <SigninDialog>
+              <Button>Comece agora mesmo</Button>
+            </SigninDialog>
+
             <Link
               href="testimonials"
               className={buttonVariants({ size: "lg", variant: "outline" })}

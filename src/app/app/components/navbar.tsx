@@ -1,7 +1,8 @@
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/primitive";
 import { Container } from "@/components/ui/container";
 
 import Link from "next/link";
+import { SigninDialog } from "./signin-dialog";
 
 const navItems = [
   { label: "Recursos", href: "#features" },
@@ -34,10 +35,9 @@ export const Navbar = () => {
             </Link>
           ))}
         </nav>
-
-        <Link href="/app/signin" className={buttonVariants()}>
-          Comece agora mesmo
-        </Link>
+        <SigninDialog>
+          <Button size={"sm"}>Comece agora mesmo</Button>
+        </SigninDialog>
       </Container>
     </header>
   );
