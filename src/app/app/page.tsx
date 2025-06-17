@@ -6,16 +6,16 @@ import { Github, Instagram, Linkedin } from "lucide-react";
 
 import { HomeSections } from "./components/sections";
 
-const Home = () => {
+const Home = async () => {
   const currentYear = new Date().getFullYear();
+
   return (
     <div className="grid">
       <Navbar />
 
       <HomeSections />
 
-
-      <footer className="border-t border-muted/50 py-12 md:py-16">
+      <footer className="border-muted/50 border-t py-12 md:py-16">
         <Container>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
             <div className="space-y-4">
