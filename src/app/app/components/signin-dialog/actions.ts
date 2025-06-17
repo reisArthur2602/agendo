@@ -3,7 +3,9 @@
 import { signIn } from "@/lib/auth";
 
 export const signinWithEmail = async (data: { email: string }) => {
-  console.log(data);
+  await signIn("email", {
+    email: data.email,
+  });
 };
 
 export const signinWithGoogle = async () => {
