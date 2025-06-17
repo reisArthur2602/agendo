@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { FeatureCard } from "./feature-card";
 import { Container } from "@/components/ui/container";
+import { TitleSection } from "./title";
 
 const features = [
   {
@@ -78,23 +79,12 @@ export const FeaturesSection = () => {
       aria-labelledby="features-heading"
     >
       <Container>
-        <div className="mb-12 flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="space-y-2">
-            <div className="bg-primary text-primary-foreground mb-2 inline-block rounded-lg px-3 py-1 text-sm">
-              Recursos poderosos
-            </div>
-            <h2
-              id="features-heading"
-              className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
-            >
-              Tudo que você precisa em um só lugar
-            </h2>
-            <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl">
-              Recursos poderosos para profissionais que querem crescer e
-              oferecer o melhor atendimento
-            </p>
-          </div>
-        </div>
+        <TitleSection
+          badge="Recursos"
+          title="Tudo que você precisa em um só lugar"
+          description="Recursos poderosos para profissionais que querem crescer e
+              oferecer o melhor atendimento"
+        />
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {features.map((feature, index) => (

@@ -19,7 +19,7 @@ export const Navbar = () => {
             className="flex items-center space-x-2"
             aria-label="Agendo Homepage"
           >
-            <span className="text-2xl font-bold">Agendo</span>
+            <span className="text-2xl font-bold">agendo</span>
           </Link>
         </div>
 

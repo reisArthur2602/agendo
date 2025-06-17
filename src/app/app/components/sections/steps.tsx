@@ -1,4 +1,29 @@
+"use client";
+
 import { Container } from "@/components/ui/container";
+import { TitleSection } from "./title";
+import { motion } from "framer-motion";
+
+const steps = [
+  {
+    number: 1,
+    title: "Configure o seu negócio",
+    description:
+      "Configure rapidamente as informações básicas como nome, local e disponibilidade do seu negócio.",
+  },
+  {
+    number: 2,
+    title: "Adicione os seus serviços",
+    description:
+      "Defina sua disponibilidade com regras flexíveis para diferentes tipos e durações de atendimentos.",
+  },
+  {
+    number: 3,
+    title: "Compartilhe o link do seu negócio",
+    description:
+      "Envie seu link de agendamento personalizado e permita que seus clientes reservem com você.",
+  },
+];
 
 export const StepsSection = () => {
   return (
@@ -8,52 +33,29 @@ export const StepsSection = () => {
       aria-labelledby="how-it-works-heading"
     >
       <Container>
-        <div className="mb-12 flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="space-y-2">
-            <h2
-              id="how-it-works-heading"
-              className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
-            >
-              Comece em minutos
-            </h2>
-            <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl">
-              Três passos simples para transformar sua rotina de agendamentos
-            </p>
-          </div>
-        </div>
+        <TitleSection
+          badge="Passo a passo"
+          title="Comece em minutos"
+          description="Três passos simples para transformar sua rotina de agendamentos"
+        />
+
         <div className="grid items-start gap-6 lg:grid-cols-3 lg:gap-12">
-          <div className="flex flex-col items-center space-y-4 text-center">
-            <div className="bg-primary text-primary-foreground flex h-16 w-16 items-center justify-center rounded-full">
-              <span className="text-2xl font-bold">1</span>
-            </div>
-            <h3 className="text-xl font-bold">Configure o seu negócio</h3>
-            <p className="text-muted-foreground">
-              Configure rapidamente as informações básicas como nome, local e
-              disponibilidade do seu negócio.
-            </p>
-          </div>
-          <div className="flex flex-col items-center space-y-4 text-center">
-            <div className="bg-primary text-primary-foreground flex h-16 w-16 items-center justify-center rounded-full">
-              <span className="text-2xl font-bold">2</span>
-            </div>
-            <h3 className="text-xl font-bold">Adicione os seus serviços</h3>
-            <p className="text-muted-foreground">
-              Defina sua disponibilidade com regras flexíveis para diferentes
-              tipos e durações de atendimentos.
-            </p>
-          </div>
-          <div className="flex flex-col items-center space-y-4 text-center">
-            <div className="bg-primary text-primary-foreground flex h-16 w-16 items-center justify-center rounded-full">
-              <span className="text-2xl font-bold">3</span>
-            </div>
-            <h3 className="text-xl font-bold">
-              Compartilhe o link do seu negócio
-            </h3>
-            <p className="text-muted-foreground">
-              Envie seu link de agendamento personalizado e permita que seus
-              clientes reservem com você
-            </p>
-          </div>
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.number}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="flex flex-col items-center space-y-4 text-center"
+            >
+              <div className="bg-primary text-primary-foreground flex h-16 w-16 items-center justify-center rounded-full">
+                <span className="text-2xl font-bold">{step.number}</span>
+              </div>
+              <h3 className="text-xl font-bold">{step.title}</h3>
+              <p className="text-muted-foreground">{step.description}</p>
+            </motion.div>
+          ))}
         </div>
       </Container>
     </section>

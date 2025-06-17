@@ -10,12 +10,12 @@ import {
 } from "@/components/ui/card";
 import { FrostedGlassIcon } from "@/components/ui/frosted-glass-icon";
 
-interface FeatureCardProps {
+type FeatureCardProps = {
   icon: ReactNode;
   title: string;
   description: string;
   accentColor?: string;
-}
+};
 
 export const FeatureCard = ({
   icon,
@@ -23,7 +23,6 @@ export const FeatureCard = ({
   description,
   accentColor = "rgba(120, 120, 255, 0.5)",
 }: FeatureCardProps) => {
-  // Adjust accent color opacity for dark mode
   const adjustedAccentColor = accentColor;
 
   return (

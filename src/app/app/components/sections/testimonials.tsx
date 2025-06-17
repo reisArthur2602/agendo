@@ -1,6 +1,10 @@
+"use client";
+
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Container } from "@/components/ui/container";
+import { TitleSection } from "./title";
+import { motion } from "framer-motion";
 
 const testimonials = [
   {
@@ -30,43 +34,44 @@ export const TestimonialsSection = () => {
   return (
     <section className="py-20" id="testimonials">
       <Container>
-        <div className="mb-12 flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="space-y-2">
-            <div className="bg-primary text-primary-foreground mb-2 inline-block rounded-lg px-3 py-1 text-sm">
-              Depoimentos
-            </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Confiança de quem já usa
-            </h2>
-            <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl">
-              Profissionais e empresas já estão transformando sua rotina com
-              nosso sistema de agendamentos via WhatsApp.
-            </p>
-          </div>
-        </div>
+        <TitleSection
+          badge="Depoimentos"
+          title=" Confiança de quem já usa"
+          description="Profissionais e empresas já estão transformando sua rotina com
+              nosso sistema de agendamentos via WhatsApp."
+        />
+
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="flex h-full flex-col">
-              <CardContent className="flex-grow pt-6">
-                <div className="mb-4 text-4xl">"</div>
-                <p className="text-muted-foreground italic">
-                  {testimonial.quote}
-                </p>
-              </CardContent>
-              <CardFooter className="border-t pt-4">
-                <div className="flex items-center space-x-4">
-                  <Avatar>
-                    <AvatarFallback>{testimonial.avatar}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium">{testimonial.name}</p>
-                    <p className="text-muted-foreground text-sm">
-                      {testimonial.title}
-                    </p>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-100px" }}
+            >
+              <Card key={index} className="flex h-full flex-col">
+                <CardContent className="flex-grow pt-6">
+                  <div className="mb-4 text-4xl">"</div>
+                  <p className="text-muted-foreground italic">
+                    {testimonial.quote}
+                  </p>
+                </CardContent>
+                <CardFooter className="border-t pt-4">
+                  <div className="flex items-center space-x-4">
+                    <Avatar>
+                      <AvatarFallback>{testimonial.avatar}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="font-medium">{testimonial.name}</p>
+                      <p className="text-muted-foreground text-sm">
+                        {testimonial.title}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </CardFooter>
-            </Card>
+                </CardFooter>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </Container>

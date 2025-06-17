@@ -4,6 +4,7 @@ import { FeaturesSection } from "./features";
 import { StepsSection } from "./steps";
 import { UseCasesSection } from "./use-cases";
 import { TestimonialsSection } from "./testimonials";
+import { PricingSection } from "./pricing";
 
 export const HomeSections = () => {
   return (
@@ -13,6 +14,7 @@ export const HomeSections = () => {
       <StepsSection />
       <UseCasesSection />
       <TestimonialsSection />
+      <PricingSection />
     </>
   );
 };

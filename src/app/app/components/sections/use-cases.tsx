@@ -15,6 +15,7 @@ import {
 
 import { Container } from "@/components/ui/container";
 import { FeatureCard } from "./feature-card";
+import { TitleSection } from "./title";
 
 const useCases = [
   {
@@ -88,28 +89,17 @@ export const UseCasesSection = () => {
   };
 
   return (
-    <section className="from-background to-muted/30 bg-gradient-to-b py-20" id="use-cases">
+    <section
+      className="from-background to-muted/30 bg-gradient-to-b py-20"
+      id="use-cases"
+    >
       <Container>
-        <motion.div
-          className="mb-12 flex flex-col items-center justify-center space-y-4 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="space-y-2">
-            <div className="bg-primary text-primary-foreground mb-2 inline-block rounded-lg px-3 py-1 text-sm">
-              Casos de Uso
-            </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Para qualquer tipo de negócio
-            </h2>
-            <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl">
-              Nosso sistema de agendamentos via WhatsApp se adapta a diferentes
-              áreas e nichos.
-            </p>
-          </div>
-        </motion.div>
+        <TitleSection
+          badge="Casos de Uso"
+          title="Para qualquer tipo de negócio"
+          description="Nosso sistema de agendamentos via WhatsApp se adapta a diferentes
+              áreas e nichos."
+        />
 
         <motion.div
           className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4"

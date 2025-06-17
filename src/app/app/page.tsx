@@ -1,12 +1,9 @@
 import { Navbar } from "./components/navbar";
 import { Container } from "@/components/ui/container";
-import { FeaturesSection } from "./components/sections/features";
-import { UseCasesSection } from "./components/sections/use-cases";
-import { TestimonialsSection } from "./components/sections/testimonials";
+
 import Link from "next/link";
 import { Github, Instagram, Linkedin } from "lucide-react";
-import { StepsSection } from "./components/sections/steps";
-import { HeroSection } from "./components/sections/hero";
+
 import { HomeSections } from "./components/sections";
 
 const Home = () => {
@@ -16,7 +13,9 @@ const Home = () => {
       <Navbar />
 
       <HomeSections />
-      <footer className="border-t py-12 md:py-16">
+
+
+      <footer className="border-t border-muted/50 py-12 md:py-16">
         <Container>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
             <div className="space-y-4">
