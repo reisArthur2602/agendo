@@ -24,7 +24,7 @@ const VerifyEmail = () => {
   if (!email) return null;
 
   return (
-    <div className="bg-muted/50 flex min-h-screen items-center justify-center p-4">
+    <div className="flex items-center justify-center bg-blue-50 p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

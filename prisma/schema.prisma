@@ -15,11 +15,10 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  // Optional for WebAuthn support
   Authenticator Authenticator[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  business      Business?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 }
 
 model Account {
@@ -75,4 +74,63 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
+}
+
+model Business {
+  id             String         @id @default(cuid())
+  name           String
+  slug           String         @unique
+  image_url      String?
+  phone          String?
+  user_id        String         @unique
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  appointments   Appointment[]
+  availabilities Availability[]
+  user           User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  services       Service[]
+}
+
+model Availability {
+  id          String   @id @default(cuid())
+  day         Day
+  to          String
+  from        String
+  is_active   Boolean  @default(true)
+  business_id String
+  createdAt   DateTime @default(now())
+  business    Business @relation(fields: [business_id], references: [id], onDelete: Cascade)
+}
+
+model Appointment {
+  id            String   @id @default(cuid())
+  date          DateTime
+  customer_name String
+  service_id    String
+  service       Service  @relation(fields: [service_id], references: [id])
+  business_id   String
+  createdAt     DateTime @default(now())
+  business      Business @relation(fields: [business_id], references: [id])
+}
+
+model Service {
+  id           String        @id @default(cuid())
+  name         String
+  description  String?
+  duration     Int           @default(60)
+  price        Float
+  business_id  String
+  createdAt    DateTime      @default(now())
+  business     Business      @relation(fields: [business_id], references: [id])
+  appointments Appointment[]
+}
+
+enum Day {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
 }
