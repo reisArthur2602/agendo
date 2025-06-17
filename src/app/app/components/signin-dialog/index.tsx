@@ -16,9 +16,10 @@ import { Separator } from "@/components/ui/separator";
 import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReactNode } from "react";
+import { FormEvent, ReactNode } from "react";
 import { Chrome } from "lucide-react";
 import { SigninFormData, SigninSchema } from "./schema";
+import { signinWithEmail, signinWithGoogle } from "./actions";
 
 type SigninDialogProps = {
   children: ReactNode;
@@ -32,8 +33,13 @@ export const SigninDialog = ({ children }: SigninDialogProps) => {
     },
   });
 
-  const onSubmit = (data: SigninFormData) => {
-    console.log(data);
+  const handleLoginEmail = async (data: SigninFormData) => {
+    await signinWithEmail(data);
+  };
+
+  const handleLoginGoogle = async (e: FormEvent) => {
+    e.preventDefault();
+    await signinWithGoogle();
   };
 
   return (
@@ -50,7 +56,7 @@ export const SigninDialog = ({ children }: SigninDialogProps) => {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid gap-4">
+        <form className="grid gap-4" onSubmit={handleLoginGoogle}>
           <Button variant="outline">
             <Chrome className="mr-2 size-4" />
             Entrar com o Google
@@ -66,10 +72,13 @@ export const SigninDialog = ({ children }: SigninDialogProps) => {
               </span>
             </div>
           </div>
-        </div>
+        </form>
 
         <Form {...form}>
-          <form className="grid gap-2" onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            className="grid gap-2"
+            onSubmit={form.handleSubmit(handleLoginEmail)}
+          >
             <InputField
               name="email"
               label="Email"
