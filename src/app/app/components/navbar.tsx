@@ -36,7 +36,7 @@ export const Navbar = () => {
           ))}
         </nav>
         <SigninDialog>
-          <Button size={"sm"}>Comece agora mesmo</Button>
+          <Button>Comece agora mesmo</Button>
         </SigninDialog>
       </Container>
     </header>

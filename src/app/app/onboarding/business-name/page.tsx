@@ -16,6 +16,9 @@ import { Form } from "@/components/ui/form";
 import { InputField } from "@/components/ui/input/field";
 import { SubmitButton } from "@/components/ui/button/submit";
 import { motion } from "framer-motion";
+import { redirect } from "next/navigation";
+import { toast } from "sonner";
+import { createBusiness } from "./action";
 
 const BusinessName = () => {
   const form = useForm<CreateBusiness>({
@@ -24,6 +27,13 @@ const BusinessName = () => {
       name: "",
     },
   });
+
+  const onSubmit = async (data: CreateBusiness) => {
+    const business = await createBusiness(data);
+    if (!business) return toast.error("Erro ao criar a organização!");
+    toast.success("Organização criada com sucesso!");
+    redirect("/app/onboarding/complete-setup");
+  };
 
   return (
     <motion.div
@@ -46,7 +56,7 @@ const BusinessName = () => {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form className="grid gap-6">
+            <form className="grid gap-6" onSubmit={form.handleSubmit(onSubmit)}>
               <InputField
                 name="name"
                 label="Nome da Organização"
