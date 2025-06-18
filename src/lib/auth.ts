@@ -37,4 +37,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+
+  pages: {
+    newUser: "/app/onboarding",
+    signOut: "/app",
+  },
 });

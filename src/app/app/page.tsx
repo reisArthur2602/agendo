@@ -8,8 +8,7 @@ import { HomeSections } from "./components/sections";
 
 const Home = async () => {
   const currentYear = new Date().getFullYear();
-  console.log("GOOGLE_ID:", process.env.AUTH_GOOGLE_ID);
-  console.log("GOOGLE_SECRET:", process.env.AUTH_GOOGLE_SECRET);
+
   return (
     <div className="grid">
       <Navbar />
