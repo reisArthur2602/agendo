@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./prisma";
 import Google from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
+import { redirect } from "next/navigation";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -32,3 +33,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signOut: "/app",
   },
 });
+
+export const getUserSession = async () => {
+  const session = await auth();
+  const user = session?.user;
+  if (!user) redirect("/app");
+  return user;
+};
