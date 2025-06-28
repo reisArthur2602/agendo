@@ -8,66 +8,61 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String
-  image     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  id         String     @id @default(cuid())
+  email      String     @unique
+  name       String
+  image      String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
   businesses Business[]
 }
 
 model Business {
-  id          String     @id @default(cuid())
-  ownerId     String
-  name        String
-  slug        String     @unique
-  description String?
-  niche       String?
-  logoUrl     String?
-  whatsapp    String?
-  instagram   String?
-  layout      LayoutType @default(CLASSIC)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  plan        Plan       @default(FREE)
-
+  id           String           @id @default(cuid())
+  ownerId      String
+  name         String
+  slug         String           @unique
+  description  String?
+  niche        String?
+  logoUrl      String?
+  whatsapp     String?
+  instagram    String?
+  layout       LayoutType       @default(CLASSIC)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  plan         Plan             @default(FREE)
+  appointments Appointment[]
   owner        User             @relation(fields: [ownerId], references: [id])
   services     Service[]
   schedules    WeeklySchedule[]
-  appointments Appointment[]
 }
 
 model Service {
-  id          String  @id @default(cuid())
-  businessId  String
-  name        String
-  description String?
-  duration    Int // em minutos
-  price       Decimal @db.Decimal(10, 2)
-
-  business     Business      @relation(fields: [businessId], references: [id])
+  id           String        @id @default(cuid())
+  businessId   String
+  name         String
+  description  String?
+  duration     Int
+  price        Decimal       @db.Decimal(10, 2)
   appointments Appointment[]
+  business     Business      @relation(fields: [businessId], references: [id])
 }
 
 model WeeklySchedule {
-  id         String  @id @default(cuid())
+  id         String     @id @default(cuid())
   businessId String
-  dayOfWeek  Int // 0 = Domingo ... 6 = Sábado
-  isActive   Boolean @default(true)
-
-  timeSlots TimeSlot[]
-  business  Business   @relation(fields: [businessId], references: [id])
+  dayOfWeek  Int
+  isActive   Boolean    @default(true)
+  timeSlots  TimeSlot[]
+  business   Business   @relation(fields: [businessId], references: [id])
 }
 
 model TimeSlot {
-  id               String @id @default(cuid())
+  id               String         @id @default(cuid())
   weeklyScheduleId String
-  startTime        String // ex: "09:00"
-  endTime          String // ex: "10:00"
-
-  schedule WeeklySchedule @relation(fields: [weeklyScheduleId], references: [id])
+  startTime        String
+  endTime          String
+  schedule         WeeklySchedule @relation(fields: [weeklyScheduleId], references: [id])
 }
 
 model Appointment {
@@ -78,9 +73,8 @@ model Appointment {
   customerName  String
   customerPhone String
   createdAt     DateTime @default(now())
-
-  service  Service  @relation(fields: [serviceId], references: [id])
-  business Business @relation(fields: [businessId], references: [id])
+  business      Business @relation(fields: [businessId], references: [id])
+  service       Service  @relation(fields: [serviceId], references: [id])
 }
 
 enum Plan {
