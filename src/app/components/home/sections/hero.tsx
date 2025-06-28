@@ -2,8 +2,9 @@ import Link from "next/link";
 import { CssGridBackground } from "../css-grid-background";
 import { FramerSpotlight } from "../framer-spotlight";
 import { Container } from "../../ui/container";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
 export const HeroSection = () => {
   return (
@@ -31,7 +32,9 @@ export const HeroSection = () => {
           </p>
 
           <div className="flex flex-wrap justify-center gap-3">
-            <Button>Crie sua conta gratuita</Button>
+            <LoginLink className={buttonVariants()}>
+              Crie sua conta grátis
+            </LoginLink>
 
             <Link
               href="#testimonials"
