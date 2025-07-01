@@ -17,7 +17,6 @@ const days: Day[] = [
 ];
 
 export const createBusiness = async (data: CreateBusinessInput) => {
- 
   const session = await getKindeServerSession().getUser();
 
   const user = await dbConnection.user.findUnique({
@@ -29,7 +28,7 @@ export const createBusiness = async (data: CreateBusinessInput) => {
   }
 
   try {
-    await dbConnection.business.create({
+    const result = await dbConnection.business.create({
       data: {
         name: data.name,
         slug: slugify(data.name),
@@ -46,10 +45,10 @@ export const createBusiness = async (data: CreateBusinessInput) => {
       },
     });
 
-    return { isSuccess: true, data: null };
+    return { isSuccess: true, result };
   } catch (error) {
     const errorMessage = (error as { message?: string }).message;
     console.log(errorMessage);
-    return { isSuccess: false, data: null };
+    return { isSuccess: false, result: null };
   }
 };
