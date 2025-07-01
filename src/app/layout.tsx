@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./styles/globals.css";
 import { KindeAuthProvider } from "./providers/kinde";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   variable: "--font-inter-sans",
@@ -23,6 +24,7 @@ export default function RootLayout({
     <KindeAuthProvider>
       <html lang="en">
         <body className={`${inter.variable} flex min-h-screen antialiased`}>
+          <Toaster expand />
           <main className="grid flex-1">{children}</main>
         </body>
       </html>

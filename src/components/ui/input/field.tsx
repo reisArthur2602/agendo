@@ -29,13 +29,16 @@ export const InputField = ({
   return (
     <FormField
       control={methods.control}
-      disabled={methods.formState.isSubmitting}
       name={name}
       render={({ field }) => (
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
-            <Input {...field} {...props} />
+            <Input
+              {...field}
+              {...props}
+              disabled={methods.formState.isSubmitting}
+            />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />

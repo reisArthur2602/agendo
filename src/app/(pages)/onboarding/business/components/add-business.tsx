@@ -9,15 +9,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { Building2 } from "lucide-react";
+import { Building2, Loader2Icon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { CreateBusinessInput, createBusinessSchema } from "../schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { InputField } from "@/components/ui/input/field";
-
 import { TextareaField } from "@/components/ui/textarea/field";
 import { Button } from "@/components/ui/button";
+import { createBusiness } from "../server/create-business";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 export const AddBusiness = () => {
   const methods = useForm<CreateBusinessInput>({
@@ -28,9 +30,13 @@ export const AddBusiness = () => {
     },
   });
 
-  const onSubmit = (data: CreateBusinessInput) => {
+  const onSubmit = async (data: CreateBusinessInput) => {
     console.log(data);
+    const { isSuccess } = await createBusiness(data);
+    if (!isSuccess) return toast.error("Erro ao criar a organização!");
+    redirect("/onboarding/complete-setup");
   };
+  const isSubmitting = methods.formState.isSubmitting;
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -59,12 +65,12 @@ export const AddBusiness = () => {
               <InputField
                 name="name"
                 placeholder="Ex:. Barbearia do ..."
-                label="Nome do negócio *"
+                label="Nome do negócio"
               />
               <TextareaField
-                name="name"
+                name="description"
                 placeholder="Descreva brevemente seu negócio"
-                label="Descrição *"
+                label="Descrição"
                 className="min-h-[100px] resize-none"
               />
               <div className="text-primary space-y-2 rounded-lg bg-blue-50 p-4 text-sm">
@@ -76,8 +82,20 @@ export const AddBusiness = () => {
               </div>
             </CardContent>
             <CardFooter>
-              <Button className="w-full" size={"lg"}>
-                Salvar e Continuar
+              <Button
+                className="w-full"
+                size={"lg"}
+                disabled={isSubmitting}
+                type="submit"
+              >
+                {isSubmitting ? (
+                  <div className="flex items-center gap-2">
+                    <Loader2Icon className="size-4 animate-spin" />
+                    Carregando...
+                  </div>
+                ) : (
+                  "Salvar e Continuar"
+                )}
               </Button>
             </CardFooter>
           </Card>
