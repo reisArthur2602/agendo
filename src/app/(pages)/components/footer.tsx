@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Container } from "../ui/container";
+import { Container } from "../../../components/common/container";
 import { Github, Instagram, Linkedin } from "lucide-react";
 
 export const HomeFooter = () => {

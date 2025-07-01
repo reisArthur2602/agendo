@@ -1,6 +1,6 @@
 "use client";
 
-import { Container } from "../../ui/container";
+import { Container } from "../../../../components/common/container";
 import { SectionTitle } from "./section-title";
 import { motion } from "framer-motion";
 

@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 import { SectionTitle } from "./section-title";
 import { motion } from "framer-motion";
-import { Container } from "../../ui/container";
+import { Container } from "../../../../components/common/container";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const testimonials = [

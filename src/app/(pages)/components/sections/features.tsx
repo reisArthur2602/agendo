@@ -11,7 +11,7 @@ import {
 import { FeatureCard } from "./feature-card";
 
 import { SectionTitle } from "./section-title";
-import { Container } from "../../ui/container";
+import { Container } from "../../../../components/common/container";
 
 const features = [
   {

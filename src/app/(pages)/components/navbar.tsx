@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Container } from "../ui/container";
+import { Container } from "../../../components/common/container";
 import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
