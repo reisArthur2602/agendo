@@ -8,61 +8,69 @@ datasource db {
 }
 
 model User {
-  id         String     @id @default(cuid())
-  email      String     @unique
-  name       String
-  image      String
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  businesses Business[]
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String
+  image     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  business  Business?
 }
 
 model Business {
-  id           String           @id @default(cuid())
-  ownerId      String
-  name         String
-  slug         String           @unique
-  description  String?
-  niche        String?
-  logoUrl      String?
-  whatsapp     String?
-  instagram    String?
-  layout       LayoutType       @default(CLASSIC)
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
-  plan         Plan             @default(FREE)
-  appointments Appointment[]
-  owner        User             @relation(fields: [ownerId], references: [id])
-  services     Service[]
-  schedules    WeeklySchedule[]
+  id          String     @id @default(cuid())
+  userId      String     @unique
+  name        String
+  slug        String     @unique
+  description String
+  whatsapp    String?
+  instagram   String?
+  layout      LayoutType @default(CLASSIC)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  services     Service[]        @relation("BusinessServices")
+  schedules    WeeklySchedule[] @relation("BusinessSchedules")
+  appointments Appointment[]    @relation("BusinessAppointments")
 }
 
 model Service {
-  id           String        @id @default(cuid())
-  businessId   String
-  name         String
-  description  String?
-  duration     Int
-  price        Decimal       @db.Decimal(10, 2)
-  appointments Appointment[]
-  business     Business      @relation(fields: [businessId], references: [id])
+  id          String @id @default(cuid())
+  businessId  String
+  name        String
+  description String
+  duration    Int
+  price       Int
+
+  business     Business      @relation("BusinessServices", fields: [businessId], references: [id], onDelete: Cascade)
+  appointments Appointment[] @relation("ServiceAppointments")
+
+  @@index([businessId])
 }
 
 model WeeklySchedule {
-  id         String     @id @default(cuid())
+  id         String  @id @default(cuid())
   businessId String
   dayOfWeek  Int
-  isActive   Boolean    @default(true)
-  timeSlots  TimeSlot[]
-  business   Business   @relation(fields: [businessId], references: [id])
+  isActive   Boolean @default(true)
+
+  business  Business   @relation("BusinessSchedules", fields: [businessId], references: [id], onDelete: Cascade)
+  timeSlots TimeSlot[]
+
+  @@index([businessId])
 }
 
 model TimeSlot {
-  id               String         @id @default(cuid())
+  id               String @id @default(cuid())
   weeklyScheduleId String
   startTime        String
   endTime          String
-  schedule         WeeklySchedule @relation(fields: [weeklyScheduleId], references: [id])
+
+  schedule WeeklySchedule @relation(fields: [weeklyScheduleId], references: [id], onDelete: Cascade)
+
+  @@index([weeklyScheduleId])
 }
 
 model Appointment {
@@ -73,8 +81,12 @@ model Appointment {
   customerName  String
   customerPhone String
   createdAt     DateTime @default(now())
-  business      Business @relation(fields: [businessId], references: [id])
-  service       Service  @relation(fields: [serviceId], references: [id])
+
+  business Business @relation("BusinessAppointments", fields: [businessId], references: [id], onDelete: Cascade)
+  service  Service  @relation("ServiceAppointments", fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@index([businessId])
+  @@index([serviceId])
 }
 
 enum Plan {

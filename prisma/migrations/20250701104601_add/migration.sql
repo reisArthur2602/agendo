@@ -19,18 +19,15 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Business" (
     "id" TEXT NOT NULL,
-    "ownerId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
-    "description" TEXT,
-    "niche" TEXT,
-    "logoUrl" TEXT,
+    "description" TEXT NOT NULL,
     "whatsapp" TEXT,
     "instagram" TEXT,
     "layout" "LayoutType" NOT NULL DEFAULT 'CLASSIC',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "plan" "Plan" NOT NULL DEFAULT 'FREE',
 
     CONSTRAINT "Business_pkey" PRIMARY KEY ("id")
 );
@@ -40,9 +37,9 @@ CREATE TABLE "Service" (
     "id" TEXT NOT NULL,
     "businessId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "description" TEXT,
+    "description" TEXT NOT NULL,
     "duration" INTEGER NOT NULL,
-    "price" DECIMAL(10,2) NOT NULL,
+    "price" INTEGER NOT NULL,
 
     CONSTRAINT "Service_pkey" PRIMARY KEY ("id")
 );
@@ -84,22 +81,40 @@ CREATE TABLE "Appointment" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Business_userId_key" ON "Business"("userId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Business_slug_key" ON "Business"("slug");
 
--- AddForeignKey
-ALTER TABLE "Business" ADD CONSTRAINT "Business_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+-- CreateIndex
+CREATE INDEX "Service_businessId_idx" ON "Service"("businessId");
+
+-- CreateIndex
+CREATE INDEX "WeeklySchedule_businessId_idx" ON "WeeklySchedule"("businessId");
+
+-- CreateIndex
+CREATE INDEX "TimeSlot_weeklyScheduleId_idx" ON "TimeSlot"("weeklyScheduleId");
+
+-- CreateIndex
+CREATE INDEX "Appointment_businessId_idx" ON "Appointment"("businessId");
+
+-- CreateIndex
+CREATE INDEX "Appointment_serviceId_idx" ON "Appointment"("serviceId");
 
 -- AddForeignKey
-ALTER TABLE "Service" ADD CONSTRAINT "Service_businessId_fkey" FOREIGN KEY ("businessId") REFERENCES "Business"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Business" ADD CONSTRAINT "Business_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "WeeklySchedule" ADD CONSTRAINT "WeeklySchedule_businessId_fkey" FOREIGN KEY ("businessId") REFERENCES "Business"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Service" ADD CONSTRAINT "Service_businessId_fkey" FOREIGN KEY ("businessId") REFERENCES "Business"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "TimeSlot" ADD CONSTRAINT "TimeSlot_weeklyScheduleId_fkey" FOREIGN KEY ("weeklyScheduleId") REFERENCES "WeeklySchedule"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "WeeklySchedule" ADD CONSTRAINT "WeeklySchedule_businessId_fkey" FOREIGN KEY ("businessId") REFERENCES "Business"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Appointment" ADD CONSTRAINT "Appointment_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "Service"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "TimeSlot" ADD CONSTRAINT "TimeSlot_weeklyScheduleId_fkey" FOREIGN KEY ("weeklyScheduleId") REFERENCES "WeeklySchedule"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Appointment" ADD CONSTRAINT "Appointment_businessId_fkey" FOREIGN KEY ("businessId") REFERENCES "Business"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Appointment" ADD CONSTRAINT "Appointment_businessId_fkey" FOREIGN KEY ("businessId") REFERENCES "Business"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Appointment" ADD CONSTRAINT "Appointment_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "Service"("id") ON DELETE CASCADE ON UPDATE CASCADE;
