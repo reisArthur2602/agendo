@@ -18,14 +18,14 @@ model User {
 }
 
 model Business {
-  id          String     @id @default(cuid())
-  userId      String     @unique
+  id          String  @id @default(cuid())
+  userId      String  @unique
   name        String
-  slug        String     @unique
+  slug        String  @unique
   description String
   whatsapp    String?
   instagram   String?
-  layout      LayoutType @default(CLASSIC)
+  layout      Layout  @default(CLASSIC)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -53,7 +53,7 @@ model Service {
 model WeeklySchedule {
   id         String  @id @default(cuid())
   businessId String
-  dayOfWeek  Int
+  dayOfWeek  Day
   isActive   Boolean @default(true)
 
   business  Business   @relation("BusinessSchedules", fields: [businessId], references: [id], onDelete: Cascade)
@@ -63,12 +63,11 @@ model WeeklySchedule {
 }
 
 model TimeSlot {
-  id               String @id @default(cuid())
+  id               String         @id @default(cuid())
   weeklyScheduleId String
   startTime        String
   endTime          String
-
-  schedule WeeklySchedule @relation(fields: [weeklyScheduleId], references: [id], onDelete: Cascade)
+  schedule         WeeklySchedule @relation(fields: [weeklyScheduleId], references: [id], onDelete: Cascade)
 
   @@index([weeklyScheduleId])
 }
@@ -89,14 +88,18 @@ model Appointment {
   @@index([serviceId])
 }
 
-enum Plan {
-  FREE
-  PRO
-  PREMIUM
-}
-
-enum LayoutType {
+enum Layout {
   CLASSIC
   MINIMAL
-  ESTHETIC
+  MODERN
+}
+
+enum Day {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
 }

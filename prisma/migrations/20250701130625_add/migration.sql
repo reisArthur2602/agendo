@@ -1,8 +1,8 @@
 -- CreateEnum
-CREATE TYPE "Plan" AS ENUM ('FREE', 'PRO', 'PREMIUM');
+CREATE TYPE "Layout" AS ENUM ('CLASSIC', 'MINIMAL', 'MODERN');
 
 -- CreateEnum
-CREATE TYPE "LayoutType" AS ENUM ('CLASSIC', 'MINIMAL', 'ESTHETIC');
+CREATE TYPE "Day" AS ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -25,7 +25,7 @@ CREATE TABLE "Business" (
     "description" TEXT NOT NULL,
     "whatsapp" TEXT,
     "instagram" TEXT,
-    "layout" "LayoutType" NOT NULL DEFAULT 'CLASSIC',
+    "layout" "Layout" NOT NULL DEFAULT 'CLASSIC',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -48,7 +48,7 @@ CREATE TABLE "Service" (
 CREATE TABLE "WeeklySchedule" (
     "id" TEXT NOT NULL,
     "businessId" TEXT NOT NULL,
-    "dayOfWeek" INTEGER NOT NULL,
+    "dayOfWeek" "Day" NOT NULL,
     "isActive" BOOLEAN NOT NULL DEFAULT true,
 
     CONSTRAINT "WeeklySchedule_pkey" PRIMARY KEY ("id")

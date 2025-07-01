@@ -3,7 +3,7 @@
 import { CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionTitle } from "./section-title";
-import { Container } from "../../../../components/common/container";
+import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";

@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Container } from "../../../components/common/container";
+
 import { Github, Instagram, Linkedin } from "lucide-react";
+import { Container } from "@/components/common/container";
 
 export const HomeFooter = () => {
   const currentYear = new Date().getFullYear();

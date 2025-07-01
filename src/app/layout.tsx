@@ -22,7 +22,9 @@ export default function RootLayout({
   return (
     <KindeAuthProvider>
       <html lang="en">
-        <body className={`${inter.variable} antialiased`}>{children}</body>
+        <body className={`${inter.variable} flex min-h-screen antialiased`}>
+          <main className="grid flex-1">{children}</main>
+        </body>
       </html>
     </KindeAuthProvider>
   );
