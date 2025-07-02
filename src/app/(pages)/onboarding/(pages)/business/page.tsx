@@ -35,7 +35,7 @@ export const Page = () => {
   const onSubmit = async (data: CreateBusinessInput) => {
     const { isSuccess, result } = await createBusiness(data);
     if (!isSuccess) return toast.error("Erro ao criar a organização!");
-    redirect(`/onboarding/complete-setup?${result?.slug}`);
+    redirect(`/onboarding/complete-setup?slug=${result?.slug}`);
   };
   const isSubmitting = methods.formState.isSubmitting;
 

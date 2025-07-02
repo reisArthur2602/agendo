@@ -163,6 +163,6 @@
   @apply border shadow-sm backdrop-blur-md;
 
   @apply border-primary/10 bg-white/80 text-gray-800 shadow-[0_4px_20px_rgba(36,101,237,0.2)];
- 
+
   @apply dark:border-white/10 dark:bg-black/20 dark:text-white dark:shadow-[0_4px_20px_rgba(36,101,237,0.3)];
 }

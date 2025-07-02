@@ -30,5 +30,5 @@ export async function GET() {
   const userHasBusiness = !!user.business;
   if (userHasBusiness) redirect("/dashboard");
 
-  redirect("/onboarding");
+  redirect("/onboarding/business");
 }
