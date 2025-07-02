@@ -1,14 +1,8 @@
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+
 import { Plus } from "lucide-react";
 import { ServicesList } from "./components/services-list";
+import { UpsertServiceDialog } from "./components/upsert-dialog";
 
 const Page = () => {
   return (
@@ -20,24 +14,12 @@ const Page = () => {
             Gerencie os serviços que você oferece
           </p>
         </div>
-
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              Novo serviço
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Novo serviço</DialogTitle>
-              <DialogDescription>
-                Adicione um novo serviço ao seu catálogo
-              </DialogDescription>
-            </DialogHeader>
-            ...
-          </DialogContent>
-        </Dialog>
+        <UpsertServiceDialog>
+          <Button>
+            <Plus className="mr-2 h-4 w-4" />
+            Novo serviço
+          </Button>
+        </UpsertServiceDialog>
       </div>
 
       <ServicesList />
