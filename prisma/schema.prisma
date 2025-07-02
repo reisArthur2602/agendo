@@ -37,13 +37,13 @@ model Business {
 }
 
 model Service {
-  id          String @id @default(cuid())
-  businessId  String
-  name        String
-  description String
-  duration    Int
-  price       Int
-
+  id           String        @id @default(cuid())
+  businessId   String
+  name         String
+  description  String
+  duration     Int
+  price        Int
+  isActive     Boolean       @default(true)
   business     Business      @relation("BusinessServices", fields: [businessId], references: [id], onDelete: Cascade)
   appointments Appointment[] @relation("ServiceAppointments")
 
