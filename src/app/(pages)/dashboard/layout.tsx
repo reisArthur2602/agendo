@@ -18,7 +18,7 @@ const Layout = async ({ children }: PropsWithChildren) => {
   return (
     <DashboardSidebar user={{ ...user, business: user.business! }}>
       {children}
-    </DashboardSidebar>
+    </DashboardSidebar> 
   );
 };
 
