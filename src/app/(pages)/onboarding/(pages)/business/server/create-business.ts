@@ -34,12 +34,11 @@ export const createBusiness = async (data: CreateBusinessInput) => {
         slug: slugify(data.name),
         description: data.description,
         userId: user.id,
-        schedules: {
+        availabilities: {
           create: days.map((day) => ({
-            dayOfWeek: day,
-            timeSlots: {
-              create: { startTime: "08:00", endTime: "18:00" },
-            },
+            day,
+            to: "08:00",
+            from: "18:00",
           })),
         },
       },

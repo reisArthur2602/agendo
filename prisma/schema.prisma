@@ -8,68 +8,62 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
+  id        String   @id @default(cuid())
+  email     String   @unique
   name      String
   image     String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  business  Business?
-}
-
-model Business {
-  id          String  @id @default(cuid())
-  userId      String  @unique
-  name        String
-  slug        String  @unique
-  description String
-  whatsapp    String?
-  instagram   String?
-  layout      Layout  @default(CLASSIC)
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  services     Service[]        @relation("BusinessServices")
-  schedules    WeeklySchedule[] @relation("BusinessSchedules")
-  appointments Appointment[]    @relation("BusinessAppointments")
+  business Business?
+}
+
+model Business {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  name        String
+  slug        String   @unique
+  description String
+  whatsapp    String?
+  instagram   String?
+  layout      Layout   @default(CLASSIC)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  services       Service[]      @relation("BusinessServices")
+  availabilities Availability[] @relation("BusinessAvailabilities")
+  appointments   Appointment[]  @relation("BusinessAppointments")
 }
 
 model Service {
-  id           String        @id @default(cuid())
-  businessId   String
-  name         String
-  description  String
-  duration     Int
-  price        Int
-  isActive     Boolean       @default(true)
+  id          String  @id @default(cuid())
+  businessId  String
+  name        String
+  description String
+  duration    Int
+  price       Int
+  isActive    Boolean @default(true)
+
   business     Business      @relation("BusinessServices", fields: [businessId], references: [id], onDelete: Cascade)
   appointments Appointment[] @relation("ServiceAppointments")
 
   @@index([businessId])
 }
 
-model WeeklySchedule {
-  id         String  @id @default(cuid())
+model Availability {
+  id         String   @id @default(cuid())
+  day        Day
+  from       String
+  to         String
+  isActive   Boolean  @default(true)
   businessId String
-  dayOfWeek  Day
-  isActive   Boolean @default(true)
+  createdAt  DateTime @default(now())
 
-  business  Business   @relation("BusinessSchedules", fields: [businessId], references: [id], onDelete: Cascade)
-  timeSlots TimeSlot[]
+  business Business @relation("BusinessAvailabilities", fields: [businessId], references: [id], onDelete: Cascade)
 
+  @@unique([businessId, day])
   @@index([businessId])
-}
-
-model TimeSlot {
-  id               String         @id @default(cuid())
-  weeklyScheduleId String
-  startTime        String
-  endTime          String
-  schedule         WeeklySchedule @relation(fields: [weeklyScheduleId], references: [id], onDelete: Cascade)
-
-  @@index([weeklyScheduleId])
 }
 
 model Appointment {
