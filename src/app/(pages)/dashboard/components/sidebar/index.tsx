@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { HeaderDashboard } from "../header";
 import { WelcomeModal } from "@/components/ui/welcome-dialog";
 import { Business, User } from "@prisma/client";
+import { useBusinessStore } from "@/lib/zustand/business";
 
 type DashboardSidebarProps = {
   user: User & { business: Business };
@@ -15,14 +16,14 @@ type DashboardSidebarProps = {
 };
 
 export const DashboardSidebar = ({ children, user }: DashboardSidebarProps) => {
+  const { setBusiness } = useBusinessStore();
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
 
   useEffect(() => {
     const hasSeenWelcome = localStorage.getItem("hasSeenWelcome");
-    if (!hasSeenWelcome) {
-      setShowWelcomeModal(true);
-    }
-  }, []);
+    if (!hasSeenWelcome) setShowWelcomeModal(true);
+    setBusiness(user.business);
+  }, [setBusiness, user]);
 
   const onCloseWelcomeModal = () => {
     setShowWelcomeModal(false);

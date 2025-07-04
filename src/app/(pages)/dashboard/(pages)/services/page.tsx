@@ -6,7 +6,7 @@ import { UpsertServiceDialog } from "./components/upsert-dialog";
 
 const Page = () => {
   return (
-    <section className="space-y-12">
+    <div className="space-y-12">
       <div className="flex w-full flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <h1 className="text-2xl font-bold">Serviços</h1>
@@ -23,7 +23,7 @@ const Page = () => {
       </div>
 
       <ServicesList />
-    </section>
+    </div>
   );
 };
 

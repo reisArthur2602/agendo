@@ -8,10 +8,10 @@ export const ServicesList = async () => {
   if (services.length === 0) return <EmptyState />;
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {services.map((service) => (
         <ServiceCard key={service.id} service={service} />
       ))}
-    </div>
+    </section>
   );
 };
