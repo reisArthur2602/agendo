@@ -1,11 +1,6 @@
-"use client";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-import { useState } from "react";
-import { GeneralTab } from "./components/tabs/general";
+import { SettingsTabs } from "./components/tabs";
 
 const Settings = () => {
-  const [activeTab, setActiveTab] = useState("general");
   return (
     <div className="space-y-12">
       <div>
@@ -14,19 +9,7 @@ const Settings = () => {
           Gerencie as configurações da sua conta e negócio
         </p>
       </div>
-      <Tabs
-        className="space-y-6"
-        value={activeTab}
-        onValueChange={setActiveTab}
-      >
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="general">Geral</TabsTrigger>
-          <TabsTrigger value="layout">Layout</TabsTrigger>
-          <TabsTrigger value="billing">Assinatura</TabsTrigger>
-        </TabsList>
-        
-        <GeneralTab />
-      </Tabs>
+      <SettingsTabs />
     </div>
   );
 };

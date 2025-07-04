@@ -20,7 +20,7 @@ export const Loading = ({
           <Skeleton className="h-4 w-[200px]" />
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, i) => (
+          {Array.from({ length: 12 }).map((_, i) => (
             <div key={i} className="space-y-3">
               <Skeleton className="h-[125px] w-full rounded-xl" />
               <div className="space-y-2">
