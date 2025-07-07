@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
@@ -26,6 +27,10 @@ import { TextareaField } from "@/components/ui/textarea/field";
 
 import { useBusinessStore } from "@/lib/zustand/business";
 import { GeneralSettingsInput, generalSettingsSchema } from "../../schema";
+import { Save } from "lucide-react";
+import { updateBusiness } from "../../server/update-business";
+import { toast } from "sonner";
+import slugify from "slugify";
 
 export const GeneralTab = () => {
   const { business } = useBusinessStore();
@@ -41,8 +46,14 @@ export const GeneralTab = () => {
     },
   });
 
-  const onSubmit = (data: GeneralSettingsInput) => {
-    console.log("Dados salvos:", data);
+  const onSubmit = async (data: GeneralSettingsInput) => {
+    const { isSuccess, error } = await updateBusiness({
+      id: business?.id,
+      ...data,
+      slug: data.slug && slugify(data.slug),
+    });
+    if (!isSuccess) return toast.error(error);
+    toast.success("As informações do seu negócio foram realizada com sucesso");
   };
 
   return (
@@ -51,9 +62,7 @@ export const GeneralTab = () => {
         <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl font-bold">
-                Informações do negócio
-              </CardTitle>
+              <CardTitle>Informações do negócio</CardTitle>
               <CardDescription>
                 Atualize as informações básicas do seu negócio
               </CardDescription>
@@ -82,7 +91,11 @@ export const GeneralTab = () => {
                 />
               </div>
 
-              <TextareaField label="Descrição" name="description" />
+              <TextareaField
+                label="Descrição"
+                name="description"
+                className="min-h-[100px] resize-none"
+              />
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <InputField
@@ -97,7 +110,12 @@ export const GeneralTab = () => {
                 />
               </div>
 
-              <Button type="submit">Salvar alterações</Button>
+              <CardAction>
+                <Button type="submit">
+                  <Save />
+                  Salvar alterações
+                </Button>
+              </CardAction>
             </CardContent>
           </Card>
         </form>

@@ -4,8 +4,7 @@ import "./styles/globals.css";
 import { KindeAuthProvider } from "./providers/kinde";
 import { Toaster } from "@/components/ui/sonner";
 
-
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Agendo - Feito para qualquer negócio que trabalha com hora marcada",
@@ -22,7 +21,7 @@ export default function RootLayout({
     <KindeAuthProvider>
       <html lang="en">
         <body className={`${inter.className} flex min-h-screen antialiased`}>
-          <Toaster expand />
+          <Toaster expand richColors position="top-center" />
           <main className="grid flex-1">{children}</main>
         </body>
       </html>

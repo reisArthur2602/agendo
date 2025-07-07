@@ -24,7 +24,6 @@ const recommendedSteps = [
 const Page = () => {
   const searchParams = useSearchParams();
   const slug = searchParams.get("slug");
-  if (!slug) return null;
 
   return (
     <div className="flex flex-col items-center justify-center">

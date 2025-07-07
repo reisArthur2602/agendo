@@ -18,17 +18,15 @@ export const HeroSection = () => {
       <Container>
         <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 text-center">
           <Badge className="px-4 py-2" variant="secondary">
-            ✨ Grátis para começar
+          ✨ Plataforma completa de agendamentos
           </Badge>
 
           <h1 className="text-4xl font-bold tracking-tighter md:text-5xl lg:text-6xl">
-            Transforme sua agenda em uma máquina de agendamentos
+          Transforme seu negócio com agendamentos online
           </h1>
 
           <p className="text-muted-foreground max-w-2xl text-xl md:text-2xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            O sistema ideal para prestadores de serviços que desejam automatizar
-            agendamentos, personalizar horários e atender seus clientes com mais
-            organização e profissionalismo.
+          Crie sua página de agendamentos personalizada em minutos. Seus clientes agendam online e você gerencia tudo em um só lugar.
           </p>
 
           <div className="flex flex-wrap justify-center gap-3">
@@ -45,7 +43,7 @@ export const HeroSection = () => {
           </div>
 
           <p className="text-muted-foreground text-sm">
-            Comece grátis • Não requer cartão
+          ✅ Grátis por 7 dias • ✅ Sem cartão de crédito • ✅ Configuração em 5 minutos
           </p>
         </div>
       </Container>

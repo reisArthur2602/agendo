@@ -9,9 +9,10 @@ export const SettingsTabs = () => {
   const [activeTab, setActiveTab] = useState("general");
   return (
     <Tabs className="space-y-6" value={activeTab} onValueChange={setActiveTab}>
-      <TabsList className="grid w-full grid-cols-3">
+      <TabsList className="grid w-full grid-cols-4">
         <TabsTrigger value="general">Geral</TabsTrigger>
         <TabsTrigger value="layout">Layout</TabsTrigger>
+        <TabsTrigger value="integration">Integração</TabsTrigger>
         <TabsTrigger value="billing">Assinatura</TabsTrigger>
       </TabsList>
 

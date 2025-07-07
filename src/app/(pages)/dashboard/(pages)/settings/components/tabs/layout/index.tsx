@@ -2,13 +2,14 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { TabsContent } from "@/components/ui/tabs";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Save } from "lucide-react";
 import Link from "next/link";
 import { PreviewLayoutField } from "./preview-layout-field";
 import { useForm } from "react-hook-form";
@@ -16,6 +17,9 @@ import { Form } from "@/components/ui/form";
 import { LayoutSettingsInput, layoutSettingsSchema } from "../../../schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useBusinessStore } from "@/lib/zustand/business";
+import { updateBusiness } from "../../../server/update-business";
+import { toast } from "sonner";
+import { Layout } from "@prisma/client";
 
 export const LayoutTab = () => {
   const { business } = useBusinessStore();
@@ -27,14 +31,21 @@ export const LayoutTab = () => {
     },
   });
 
-  const onSubmit = (data: LayoutSettingsInput) => {
-    console.log("Dados salvos:", data);
+  const onSubmit = async (data: LayoutSettingsInput) => {
+    const { isSuccess, error } = await updateBusiness({
+      id: business?.id,
+      layout: data.layout as Layout,
+    });
+
+    if (!isSuccess) return toast.error(error);
+    toast.success("O layout foi atualizado com sucesso");
   };
+
   return (
     <TabsContent value="layout" className="space-y-6">
       <Form {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <Card>
+          <Card className="shad">
             <CardHeader>
               <CardTitle>Aparência da página</CardTitle>
               <CardDescription>
@@ -45,12 +56,11 @@ export const LayoutTab = () => {
             <CardContent className="space-y-6">
               <PreviewLayoutField />
               <div className="rounded-lg border bg-gray-50 p-4">
-                <div className="mb-2 flex items-center justify-between">
+                <div className="flex items-center justify-between">
                   <h4 className="font-medium">Preview da sua página</h4>
                   <Link
                     className={buttonVariants({
                       variant: "outline",
-                      size: "sm",
                     })}
                     href={"/agendo/" + business?.slug}
                   >
@@ -62,8 +72,12 @@ export const LayoutTab = () => {
                   agendo.com/{business?.slug}
                 </p>
               </div>
-
-              <Button>Salvar alterações</Button>
+              <CardAction>
+                <Button>
+                  <Save />
+                  Salvar alterações
+                </Button>
+              </CardAction>
             </CardContent>
           </Card>
         </form>
