@@ -87,7 +87,7 @@ export const UserNav = ({ user }: UserNavProps) => {
             <DropdownMenuSeparator />
 
             <DropdownMenuItem asChild>
-              <LogoutLink>Sair</LogoutLink>
+              <LogoutLink >Sair</LogoutLink>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
