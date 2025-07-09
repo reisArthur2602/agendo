@@ -45,7 +45,7 @@ export const DashboardSidebar = ({ children, user }: DashboardSidebarProps) => {
           <HeaderDashboard />
 
           <motion.div
-            className="mx-auto size-full max-w-5xl p-6"
+            className="mx-auto size-full max-w-7xl p-6"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3 }}

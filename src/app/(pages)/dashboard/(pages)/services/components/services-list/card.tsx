@@ -74,8 +74,8 @@ export const ServiceCard = ({ service }: CardServiceProps) => {
     <>
       <Card
         className={cn(
-          "group hover:border-primary relative border transition-all duration-200 hover:shadow-md",
-          service.isActive ? "border-l-primary border-l-4" : "bg-muted",
+          "group hover:border-primary relative border transition-all duration-200 hover:shadow-md w-full",
+          !service.isActive && "bg-muted",
         )}
       >
         <CardHeader>

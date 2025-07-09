@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import { AvailabilitiesList } from "./components/availabilities-list";
+import { SkeletonAvailability } from "./components/availabilities-list/skeleton";
 
 const Page = async () => {
   return (
@@ -9,7 +11,9 @@ const Page = async () => {
           Defina quando você está disponível para agendamento
         </p>
       </div>
-      <AvailabilitiesList />
+      <Suspense fallback={<SkeletonAvailability />}>
+        <AvailabilitiesList />
+      </Suspense>
     </div>
   );
 };

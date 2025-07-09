@@ -1,76 +1,124 @@
 "use client";
 
 import { useState } from "react";
-import { addDays, format, getDay, isSameDay } from "date-fns";
+import {
+  addMinutes,
+  format,
+  getDay,
+  isSameDay,
+  isBefore,
+  isAfter,
+  startOfDay,
+  endOfWeek,
+  isPast,
+} from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Availability, Appointment } from "@prisma/client";
+import { Availability, Appointment, Day, Service } from "@prisma/client";
 import { useMultiStepStore } from "@/lib/zustand/multistep";
-import { ptBR } from "date-fns/locale";
 import {
   combineDateAndTime,
   generateTimeSlots,
   weekDays,
 } from "../../../utils";
 
+type AppointmentWithService = Appointment & {
+  service: Service;
+};
+
 type CalendarAppointmentProps = {
   availabilities: Availability[];
-  appointments: Appointment[];
+  appointments: AppointmentWithService[];
+  serviceDuration: number;
 };
 
 export const CalendarAppointment = ({
   availabilities,
   appointments,
+  serviceDuration,
 }: CalendarAppointmentProps) => {
-  const today = new Date();
-
+  const today = startOfDay(new Date());
   const [date, setDate] = useState<Date>(today);
   const [time, setTime] = useState<string | null>(null);
   const { setMultiStep, currentStep, setData, data } = useMultiStepStore();
 
   const selectedDayName = weekDays[getDay(date)];
 
-  // slots
-  const timeSlots = availabilities
+  const activeDaysOfWeek = availabilities
+    .filter((a) => a.isActive)
+    .map((a) => a.day);
+
+  const availableSlots = availabilities
     .filter((a) => a.day === selectedDayName && a.isActive)
-    .flatMap(
-      (slot) => generateTimeSlots({ from: slot.from, to: slot.to }) || [],
-    );
+    .flatMap((a) => generateTimeSlots({ from: a.from, to: a.to }));
 
-  const ocuppiedSlots = appointments
-    .filter((a) => isSameDay(new Date(a.date), date))
-    .map((a) => format(new Date(a.date), "HH:mm"));
+  const occupiedSlots = appointments
+    .filter((appt) => isSameDay(new Date(appt.date), date))
+    .flatMap((appt) => {
+      const start = new Date(appt.date);
+      const end = addMinutes(start, appt.service.duration);
 
-  const freeSlots = timeSlots.filter((slot) => !ocuppiedSlots.includes(slot));
+      return generateTimeSlots({
+        from: format(start, "HH:mm"),
+        to: format(end, "HH:mm"),
+      });
+    });
 
-  const workDays = availabilities.filter((a) => a.isActive).length;
+  const freeSlots = availableSlots.filter((slot) => {
+    const slotStart = combineDateAndTime(date, slot);
+    const slotEnd = addMinutes(slotStart, serviceDuration);
 
-  const handleSelectDate = (value: Date | undefined) => {
-    if (value) {
-      setDate(value);
+    if (isPast(slotStart)) return false;
+
+    const currentSlotRange = generateTimeSlots({
+      from: format(slotStart, "HH:mm"),
+      to: format(slotEnd, "HH:mm"),
+    });
+
+    return currentSlotRange.every((minute) => !occupiedSlots.includes(minute));
+  });
+
+  const handleSelectDate = (newDate: Date | undefined) => {
+    if (newDate) {
+      setDate(newDate);
       setTime(null);
     }
   };
+
   const handleSelectTime = (value: string) => {
     setTime(value);
     setData({ ...data, date: combineDateAndTime(date, value) });
     setMultiStep(currentStep + 1);
   };
+
   return (
     <div>
       <div className="rounded-md border">
         <div className="flex flex-col md:flex-row">
           <Calendar
-            disableNavigation
             locale={ptBR}
+            disableNavigation
             mode="single"
             selected={date}
             onSelect={handleSelectDate}
             className="p-2 sm:pe-5"
-            disabled={[{ before: today, after: addDays(today, workDays - 1) }]}
+            disabled={(date) => {
+              const isBeforeToday = isBefore(date, today);
+              const isAfterThisSunday = isAfter(
+                date,
+                endOfWeek(today, { weekStartsOn: 1 }),
+              );
+
+              const dayName = weekDays[getDay(date)] as Day;
+              const isUnavailable = !activeDaysOfWeek.includes(dayName);
+
+              return isBeforeToday || isAfterThisSunday || isUnavailable;
+            }}
           />
+
           <div className="relative flex-1 max-sm:h-48 sm:w-40">
             <div className="absolute inset-0 py-4 max-sm:border-t">
               <ScrollArea className="h-full sm:border-s">

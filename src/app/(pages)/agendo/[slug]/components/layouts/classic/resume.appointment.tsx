@@ -3,6 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { formatDate, formatPrice } from "@/lib/utils";
 import { useMultiStepStore } from "@/lib/zustand/multistep";
+import {
+  createAppointmenmt,
+  CreateAppointmentInput,
+} from "../../../server/create-appointment";
+import { toast } from "sonner";
 
 export const ResumeAppointment = () => {
   const { data } = useMultiStepStore();
@@ -26,6 +31,20 @@ export const ResumeAppointment = () => {
     },
   ];
 
+  const onSubmit = async () => {
+    const input = {
+      customerName: data.customerName,
+      customerPhone: data.customerPhone,
+      date: data.date,
+      serviceId: data.service?.id,
+      businessId: data.service?.businessId,
+    } as CreateAppointmentInput;
+
+    const { error } = await createAppointmenmt(input);
+    if (error) return toast.error(error);
+    toast.success("O seu agendamento foi confirmado com sucesso!");
+  };
+
   return (
     <div className="grid gap-6">
       <div className="space-y-4 text-sm">
@@ -48,7 +67,9 @@ export const ResumeAppointment = () => {
         </div>
       </div>
 
-      <Button size="lg">Confirmar Agendamento</Button>
+      <Button size="lg" onClick={onSubmit}>
+        Confirmar Agendamento
+      </Button>
     </div>
   );
 };

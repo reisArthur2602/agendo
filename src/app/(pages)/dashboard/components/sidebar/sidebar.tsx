@@ -64,7 +64,7 @@ export function AppSidebar({ user }: AppSidebarProps) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Logo variant="short"/>
+              <Logo variant="short" />
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

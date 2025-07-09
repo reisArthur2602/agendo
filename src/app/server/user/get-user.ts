@@ -1,9 +1,10 @@
-"use server";
+"server-only";
 
 import { dbConnection } from "@/lib/prisma";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { cache } from "react";
 
-export const getUser = async () => {
+export const getUser = cache(async () => {
   const session = await getKindeServerSession().getUser();
   if (!session) return null;
 
@@ -13,4 +14,4 @@ export const getUser = async () => {
   });
 
   return user;
-};
+});

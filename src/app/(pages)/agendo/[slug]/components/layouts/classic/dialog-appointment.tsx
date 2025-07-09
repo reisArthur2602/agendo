@@ -20,7 +20,7 @@ import { ResumeAppointment } from "./resume.appointment";
 type DialogAppointmentProps = {
   service: Service;
   availabilities: Availability[];
-  appointments: Appointment[];
+  appointments: (Appointment & { service: Service })[];
   children: ReactNode;
 };
 
@@ -52,6 +52,7 @@ export const DialogAppointment = ({
         <CalendarAppointment
           availabilities={availabilities}
           appointments={appointments}
+          serviceDuration={service.duration}
         />
       ),
     },

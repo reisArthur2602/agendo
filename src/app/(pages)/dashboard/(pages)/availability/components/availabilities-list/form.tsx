@@ -16,7 +16,6 @@ import {
   AvailabilitiesFormInput,
   availabilitiesFormSchema,
 } from "../../schema";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 type AvailabilitiesFormProps = {
   availabilities: Availability[];
@@ -63,7 +62,7 @@ export const AvailabilitiesForm = ({
   return (
     <Form {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-4">
-        <ScrollArea className="h-full">
+        <div>
           <div className="space-y-4">
             {fields.map((day, idx) => (
               <div
@@ -126,7 +125,7 @@ export const AvailabilitiesForm = ({
               </div>
             ))}
           </div>
-        </ScrollArea>
+        </div>
 
         <div className="flex justify-end">
           <Button size="lg" type="submit">

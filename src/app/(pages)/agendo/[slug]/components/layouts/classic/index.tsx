@@ -1,7 +1,6 @@
 "use client";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Appointment, Availability, Business, Service } from "@prisma/client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CalendarCheck, Clock } from "lucide-react";
@@ -17,20 +16,17 @@ import { DialogAppointment } from "./dialog-appointment";
 import { useMultiStepStore } from "@/lib/zustand/multistep";
 import { formatPrice, getInitials } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { getBusiness } from "../../../server/get-business";
 
 type LayoutClassicProps = {
-  business: Business & { services: Service[] } & {
-    appointments: Appointment[];
-  } & {
-    availabilities: Availability[];
-  };
+  business: Awaited<ReturnType<typeof getBusiness>>;
 };
 
 export const LayoutClassic = ({ business }: LayoutClassicProps) => {
   const { setData } = useMultiStepStore();
   return (
     <motion.div
-      className="from-background to-background/80 flex items-center justify-center bg-gradient-to-t"
+      className="from-background to-background/50 flex items-center justify-center bg-gradient-to-t"
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3 }}
@@ -40,16 +36,16 @@ export const LayoutClassic = ({ business }: LayoutClassicProps) => {
         <header className="flex flex-col items-center gap-4 p-4">
           <Avatar className="border-background size-40 border-4 shadow-2xl">
             <AvatarFallback className="bg-primary/40 text-4xl font-semibold text-white">
-              {getInitials(business.name)}
+              {getInitials(business!.name)}
             </AvatarFallback>
           </Avatar>
-          <h1 className="text-3xl font-bold capitalize">{business.name}</h1>
-          <p className="text-muted-foreground">{business.description}</p>
+          <h1 className="text-3xl font-bold capitalize">{business!.name}</h1>
+          <p className="text-muted-foreground">{business!.description}</p>
         </header>
 
         <Tabs className="space-y-6" value="services">
           <TabsList className="mx-auto w-full">
-            <TabsTrigger value="services" >
+            <TabsTrigger value="services">
               <CalendarCheck className="size-4" />
               Serviços
             </TabsTrigger>
@@ -70,10 +66,10 @@ export const LayoutClassic = ({ business }: LayoutClassicProps) => {
               </CardHeader>
 
               <CardContent className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {business.services.map((service) => (
-                  <Card className="p-6" key={service.id}>
-                    <CardHeader className="border-b px-0">
-                      <CardTitle className="capitalize">
+                {business!.services.map((service) => (
+                  <Card className="flex flex-col p-6" key={service.id}>
+                    <CardHeader className="flex-1 border-b px-0">
+                      <CardTitle className="line-clamp-2 text-xl capitalize">
                         {service.name}
                       </CardTitle>
                       <CardDescription className="mb-6 flex items-center gap-1.5">
@@ -86,8 +82,8 @@ export const LayoutClassic = ({ business }: LayoutClassicProps) => {
                       </span>
                       <DialogAppointment
                         service={service}
-                        availabilities={business.availabilities}
-                        appointments={business.appointments}
+                        availabilities={business!.availabilities}
+                        appointments={business!.appointments}
                       >
                         <Button
                           variant="outline"

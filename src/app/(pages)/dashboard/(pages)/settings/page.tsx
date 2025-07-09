@@ -9,6 +9,7 @@ const Settings = () => {
           Gerencie as configurações da sua conta e negócio
         </p>
       </div>
+      
       <SettingsTabs />
     </div>
   );

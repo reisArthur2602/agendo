@@ -2,6 +2,7 @@
 
 import { dbConnection } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export const updateBusiness = async (input: Prisma.BusinessUpdateInput) => {
   try {
@@ -30,7 +31,9 @@ export const updateBusiness = async (input: Prisma.BusinessUpdateInput) => {
         ...input,
       },
     });
+    revalidatePath('/dashboard/settings')
     return { isSuccess: true, data: null };
+    
   } catch (error) {
     console.log("Erro editar negócio", error);
     return { isSuccess: false, error: null };

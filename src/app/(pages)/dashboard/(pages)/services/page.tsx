@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { ServicesList } from "./components/services-list";
 import { UpsertServiceDialog } from "./components/upsert-dialog";
+import { Suspense } from "react";
+import { SkeletonServices } from "./components/skeleton";
 
 const Page = () => {
   return (
@@ -21,8 +23,9 @@ const Page = () => {
           </Button>
         </UpsertServiceDialog>
       </div>
-
-      <ServicesList />
+      <Suspense fallback={<SkeletonServices />}>
+        <ServicesList />
+      </Suspense>
     </div>
   );
 };
